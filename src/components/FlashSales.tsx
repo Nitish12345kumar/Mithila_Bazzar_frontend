@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap, Clock, Flame } from "lucide-react";
 
 const FlashSales = () => {
   const flashProducts = [
@@ -61,30 +61,73 @@ const FlashSales = () => {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-muted/20">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-3">
-            <div className="bg-destructive text-white p-2 rounded-lg">
-              <Zap className="h-6 w-6" />
+    <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-primary rounded-full opacity-10 blur-3xl animate-glow-pulse" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-gradient-secondary rounded-full opacity-10 blur-3xl animate-glow-pulse" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-3 mb-6">
+            <div className="glass p-4 rounded-xl border border-destructive/20 shadow-neon">
+              <Zap className="h-8 w-8 text-destructive animate-glow-pulse" />
             </div>
-            <h2 className="text-3xl font-bold text-foreground">Flash Sales</h2>
+            <Flame className="h-6 w-6 text-destructive animate-bounce" />
           </div>
-          <Button variant="outline" className="hidden sm:flex">
-            View All Products
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          
+          <h2 className="text-5xl sm:text-6xl font-black bg-gradient-primary bg-clip-text text-transparent mb-4">
+            Flash Sales
+          </h2>
+          
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Grab these incredible deals before they disappear! Limited time offers with massive discounts.
+          </p>
+
+          {/* Countdown Timer */}
+          <div className="flex justify-center items-center space-x-6 mb-8">
+            <div className="flex items-center space-x-2 glass px-4 py-2 rounded-lg border border-white/10">
+              <Clock className="h-5 w-5 text-destructive" />
+              <span className="text-foreground font-semibold">Ends in:</span>
+            </div>
+            
+            <div className="flex space-x-2">
+              {['23', '59', '45'].map((time, index) => (
+                <div key={index} className="glass px-3 py-2 rounded-lg border border-destructive/20 min-w-[3rem] text-center">
+                  <div className="text-2xl font-bold text-destructive">{time}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {index === 0 ? 'HRS' : index === 1 ? 'MIN' : 'SEC'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
           {flashProducts.map((product, index) => (
-            <ProductCard key={index} {...product} />
+            <div 
+              key={index} 
+              className="animate-slide-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <ProductCard {...product} />
+            </div>
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <Button variant="destructive" size="lg" className="text-lg px-8 py-6">
-            View All Products
+        {/* View All Button */}
+        <div className="text-center">
+          <Button 
+            size="lg" 
+            className="text-xl px-12 py-8 bg-gradient-primary hover:bg-gradient-secondary border-0 shadow-neon hover:shadow-glow transition-all duration-500 group"
+          >
+            <Flame className="mr-3 h-6 w-6 group-hover:animate-bounce" />
+            View All Flash Sales
+            <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </div>
