@@ -8,35 +8,38 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 0 0% 8%;
+    --background: 0 0% 100%;
+    --foreground: 220 10% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 220 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 220 10% 15%;
 
     --primary: 220 100% 50%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 220 100% 60%;
-    --primary-dark: 220 100% 40%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 220 100% 55%;
+    --primary-dark: 220 100% 45%;
 
-    --secondary: 210 10% 95%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary: 220 10% 96%;
+    --secondary-foreground: 220 10% 15%;
 
-    --muted: 210 10% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 45%;
 
     --accent: 220 100% 50%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 85% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 10% 88%;
-    --input: 210 10% 95%;
+    --border: 220 10% 90%;
+    --input: 220 10% 96%;
     --ring: 220 100% 50%;
+
+    --sale-badge: 0 85% 60%;
+    --orange-accent: 25 95% 53%;
 
     /* Next-gen gradients */
     --gradient-primary: linear-gradient(135deg, hsl(220 100% 50%) 0%, hsl(200 100% 55%) 50%, hsl(180 100% 60%) 100%);
@@ -134,8 +137,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: var(--gradient-background);
-    background-attachment: fixed;
+    background: hsl(var(--background));
   }
 
   /* Scrollbar Styling */

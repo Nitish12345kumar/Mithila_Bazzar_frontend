@@ -1,4 +1,4 @@
-import { Star, Heart, ShoppingCart, Eye, Zap } from "lucide-react";
+import { Star, Heart, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -22,91 +22,76 @@ const ProductCard = ({
   isOnSale 
 }: ProductCardProps) => {
   return (
-    <Card className="group relative overflow-hidden glass border-white/10 hover:border-primary/30 transition-all duration-500 hover:shadow-glass hover:-translate-y-2">
+    <Card className="group relative overflow-hidden border border-border hover:shadow-lg transition-all duration-300 bg-white">
       {/* Sale Badge */}
       {isOnSale && discount && (
         <div className="absolute top-3 left-3 z-10">
-          <div className="bg-gradient-primary text-white px-3 py-1 rounded-full text-xs font-bold shadow-neon flex items-center">
-            <Zap className="w-3 h-3 mr-1" />
-            -{discount}%
+          <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+            {discount}%
           </div>
         </div>
       )}
 
       {/* Wishlist Button */}
       <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <Button size="sm" variant="ghost" className="glass hover:bg-white/20 text-white p-2 rounded-full">
-          <Heart className="h-4 w-4 hover:text-destructive transition-colors" />
+        <Button size="sm" variant="ghost" className="hover:bg-gray-100 p-1 rounded-full">
+          <Heart className="h-4 w-4" />
         </Button>
       </div>
 
       <CardContent className="p-0">
         {/* Image Container */}
-        <div className="relative overflow-hidden rounded-t-lg h-48 bg-gradient-card">
+        <div className="relative overflow-hidden h-48 bg-gray-100">
           <img 
             src={image} 
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
-          
-          {/* Overlay with quick actions */}
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-            <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm border-white/20">
-              <Eye className="h-4 w-4" />
-            </Button>
-            <Button size="sm" className="bg-gradient-primary hover:bg-gradient-secondary text-white border-0 shadow-neon">
-              <ShoppingCart className="h-4 w-4" />
-            </Button>
-          </div>
         </div>
 
         {/* Product Info */}
         <div className="p-4 space-y-3">
+          {/* Product Name */}
+          <h3 className="font-medium text-foreground line-clamp-2">
+            {name}
+          </h3>
+
+          {/* Price */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xl font-bold text-foreground">
+              ${price}
+            </span>
+            {originalPrice && (
+              <span className="text-sm text-muted-foreground line-through">
+                ${originalPrice}
+              </span>
+            )}
+          </div>
+
           {/* Rating */}
           <div className="flex items-center space-x-1">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
                 className={`h-4 w-4 ${
-                  i < rating 
+                  i < Math.floor(rating) 
                     ? "text-yellow-400 fill-yellow-400" 
-                    : "text-muted-foreground"
+                    : "text-gray-300"
                 }`}
               />
             ))}
-            <span className="text-sm text-muted-foreground ml-2">({rating}.0)</span>
-          </div>
-
-          {/* Product Name */}
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-            {name}
-          </h3>
-
-          {/* Price */}
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-primary">
-              ₹{price}
-            </span>
-            {originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">
-                ₹{originalPrice}
-              </span>
-            )}
+            <span className="text-sm text-muted-foreground ml-2">{rating}</span>
           </div>
 
           {/* Add to Cart Button */}
           <Button 
-            className="w-full bg-gradient-primary hover:bg-gradient-secondary border-0 shadow-card hover:shadow-neon transition-all duration-300 group/btn"
+            className="w-full bg-primary hover:bg-primary-dark text-white transition-colors duration-300"
             size="sm"
           >
-            <ShoppingCart className="h-4 w-4 mr-2 group-hover/btn:animate-bounce" />
             Add to Cart
           </Button>
         </div>
       </CardContent>
-
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 rounded-lg bg-gradient-primary opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
     </Card>
   );
 };
